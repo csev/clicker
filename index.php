@@ -95,9 +95,34 @@ echo("Enter guess:\n");
 echo('<input type="text" name="guess" value=""> ');
 echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Guess').'"> ');
    
-$result = $PDOX->allRowsDie('SELECT * FROM solution_wiscrowd');
+$results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM solution_wiscrowd GROUP BY guess ORDER BY guess ASC');
+$numA = 0;
+$numB = 0;
+$numC = 0;
+$numD = 0;
+$numE = 0;
 
 
+
+if(@$results[0]['total'] != null){
+  $numA = 0 + $results[0]['total'];
+}
+
+if(@$results[1]['total'] != null){
+  $numB = 0 + $results[1]['total'];
+}
+
+if (@$results[2]['total'] != null) {
+  $numC = 0 + $results[2]['total'];
+}
+
+if (@$results[3]['total'] != null) {
+  $numD = 0 + $results[3]['total'];
+}
+
+if (@$results[4]['total'] != null) {
+  $numE = 0 + $results[4]['total'];
+}
       $rows = array();
       $table = array();
       $table['cols'] = array(
@@ -114,7 +139,7 @@ $result = $PDOX->allRowsDie('SELECT * FROM solution_wiscrowd');
 
     );
         /* Extract the information from $result */
-        foreach($result as $r) {
+        /*foreach($results as $r) {
 
           $temp = array();
 
@@ -129,8 +154,8 @@ $result = $PDOX->allRowsDie('SELECT * FROM solution_wiscrowd');
         }
 
     $table['rows'] = $rows;
-
-    $fifty = 50;
+*/
+    
     // convert data into JSON format
     $jsonTable = json_encode($table);
     //echo $jsonTable;
@@ -144,12 +169,17 @@ if ( $USER->instructor) {
 
 ?>
 <input type="submit" class="btn btn-info" name="toggle" onclick="$('#chart_div').toggle(); return false;" value="Show answers">
-<input type="submit" name="check" class="btn btn-success" value="Check answers">
-<input type="submit" name="reset" class="btn btn-danger"  value="Reset answers"><br/>
+<!--<input type="submit" name="check" class="btn btn-success" value="Check answers">-->
+<input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
+<?php
+    echo("</form>");
+?>
+<button style="float:right" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript" src = "https://www.google.com/jsapi"></script>
+<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src = "script.js"></script>
+  <script type="text/javascript">
 
       // Load the Visualization API and the piechart package.
       google.load('visualization', '1.0', {'packages':['corechart']});
@@ -162,32 +192,22 @@ if ( $USER->instructor) {
       // draws it.
       function drawChart() {
 
-        // Create the data table.
-        /*var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Quantity');
-        data.addRows([
-          ['A', <?=$fifty?>],
-          ['B', 1],
-          ['C', 1],
-          ['D', 1],
-          ['E', 2]
-          ]);*/
-    var data = google.visualization.arrayToDataTable([
-       ['Element', 'Quantity', { role: 'style' }, {role:'annotation'}],
-         ['A', <?=$fifty?>, 'red', 'A'],            // RGB value
-         ['B', 10.49, 'blue', 'B'],            // English color name
-         ['C', 19.30, 'grey', 'C'],
-       ['D', 21.45, 'green', 'D'], // CSS-style declaration
-       ['E', 21.45, 'purple', 'E'], // CSS-style declaration
-      ]);
+
+        var data = google.visualization.arrayToDataTable([
+         ['Element', 'Quantity', { role: 'style' }, {role:'annotation'}],
+         ['A', <?=$numA?>, 'red', 'A'],            // RGB value
+         ['B', <?=$numB?>, 'blue', 'B'],            // English color name
+         ['C', <?=$numC?>, 'grey', 'C'],
+       ['D', <?=$numD?>, 'green', 'D'], // CSS-style declaration
+       ['E', <?=$numE?>, 'purple', 'E'], // CSS-style declaration
+       ]);
 
         // Set chart options
-        var options = {'title':'Answer Distribution',
+        /*var options = {'title':'Answer Distribution',
                        'width':800,
                        'height':600
                    };
-
+                   */
         // Instantiate and draw our chart, passing in some options.
         //var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
         //chart.draw(data, options);
@@ -209,24 +229,15 @@ if ( $USER->instructor) {
     }    
     </script>
 
-
+    
+    <p id="timerOutput" style = "float:right">00:00</p>
     <div id="chart_div"></div>
 
+    
 
-<?php
-    echo("</form>");
+    <?
     //echo('<p><a href="debug.php" target="_blank">Debug Print Session Data</a></p>');
     //echo("\n");
-
-
-    $_SESSION['guessNum'] = 0;
-        $_SESSION['total'] = 0;
-        $_SESSION['average'] = 0;
-    $rows = $PDOX->allRowsDie("SELECT link_id, user_id, guess, attend FROM {$p}solution_wiscrowd
-            WHERE link_id = :LI ORDER BY attend DESC",
-                                  array(':LI' => $LINK->id)
-        );
-        
         
     
 }
