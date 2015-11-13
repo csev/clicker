@@ -13,7 +13,7 @@ function startPause(){
 	else{
 
 		running = false;
-		document.getElementById("startPause").innerHTML = "Resume";
+		document.getElementById("startPause").innerHTML = "Stop";
 	}
 }
 

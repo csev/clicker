@@ -15,7 +15,7 @@ $p = $CFG->dbprefix;
 
 
 //TRY TO USE SESSION TO SAVE GUESSNUM AND AVERAGE
-if(isset($_POST['guess']) && !isset($_POST['reset']) && !isset($_POST['check'])){
+if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
     $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
@@ -25,14 +25,85 @@ if(isset($_POST['guess']) && !isset($_POST['reset']) && !isset($_POST['check']))
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
-                        ':GU' => $_POST['guess']
+                        ':GU' => 0
                         ));
 
   
    $_SESSION['success'] = 'Guess Recorded';
    header('Location: '.addSession('index.php') ) ;
    return;
-}else if(isset($_POST['reset']) && $USER->instructor){
+}else if(isset($_POST['sendB']) && !isset($_POST['reset'])){
+
+    
+    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+            (link_id, user_id, guess, attend)
+            VALUES ( :LI, :UI, :GU, NOW() )
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+                    array(
+                        ':LI' => $LINK->id,
+                        ':UI' => $USER->id,
+                        ':GU' => 1
+                        ));
+
+  
+   $_SESSION['success'] = 'Guess Recorded';
+   header('Location: '.addSession('index.php') ) ;
+   return;
+}else if(isset($_POST['sendC']) && !isset($_POST['reset'])){
+
+    
+    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+            (link_id, user_id, guess, attend)
+            VALUES ( :LI, :UI, :GU, NOW() )
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+                    array(
+                        ':LI' => $LINK->id,
+                        ':UI' => $USER->id,
+                        ':GU' => 2
+                        ));
+
+  
+   $_SESSION['success'] = 'Guess Recorded';
+   header('Location: '.addSession('index.php') ) ;
+   return;
+}
+else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
+
+    
+    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+            (link_id, user_id, guess, attend)
+            VALUES ( :LI, :UI, :GU, NOW() )
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+                    array(
+                        ':LI' => $LINK->id,
+                        ':UI' => $USER->id,
+                        ':GU' => 3
+                        ));
+
+  
+   $_SESSION['success'] = 'Guess Recorded';
+   header('Location: '.addSession('index.php') ) ;
+   return;
+}
+else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
+
+    
+    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+            (link_id, user_id, guess, attend)
+            VALUES ( :LI, :UI, :GU, NOW() )
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+                    array(
+                        ':LI' => $LINK->id,
+                        ':UI' => $USER->id,
+                        ':GU' => 4
+                        ));
+
+  
+   $_SESSION['success'] = 'Guess Recorded';
+   header('Location: '.addSession('index.php') ) ;
+   return;
+}
+else if(isset($_POST['reset']) && $USER->instructor){
 
     $PDOX->queryDie("DELETE FROM {$p}solution_wiscrowd");
 
@@ -92,13 +163,13 @@ $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messag
 // A partial form styled using Twitter Bootstrap; button setup
 echo('<form method="post">');
 echo("Enter guess:\n");
-echo('<input type="text" name="guess" value=""> ');
+//echo('<input type="text" name="guess" value=""> ');
 
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('A').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('B').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendA" value="'._('A').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendB" value="'._('B').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
 
 $results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM solution_wiscrowd GROUP BY guess ORDER BY guess ASC');
 $numA = 0;
@@ -154,17 +225,19 @@ if ( $USER->instructor) {
 
 <input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
 </form>
-<span>
-<button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
-<button type="submit" Style="position:absolute; top:0px; right:0px"class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show answers</button>
-<!--<input type="submit" name="check" class="btn btn-success" value="Check answers">-->
 
+<div style = "position:absolute; top:0px; right:0px">
+  
+<button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
+<button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show answers</button>
+<!--<input type="submit" name="check" class="btn btn-success" value="Check answers">-->
+</div>
 
 
 
 
 <p id="timerOutput" style = "position:relative; float:right; font-family:verdana; font-size:450%; clear:both">00:00</p>
-</span>
+
 <script type="text/javascript" src = "script.js"></script>
 <!--<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
 <script type="text/javascript" src = "https://www.google.com/jsapi"></script>
@@ -206,7 +279,7 @@ if ( $USER->instructor) {
           };
           // Instantiate and draw our chart, passing in some options.
           // Do not forget to check your div ID
-          var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
           chart.draw(data, options);
         }    
     </script>
