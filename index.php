@@ -91,15 +91,15 @@ $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messag
 
 // A partial form styled using Twitter Bootstrap; button setup
 echo('<form method="post">');
-echo("Enter guess:\n");
-echo('<input type="text" name="guess" value=""> ');
+echo("Choose:\n");
+//echo('<input type="text" name="guess" value=""> ');
 
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('A').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('B').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
-
+echo('<input type="submit" class="btn btn-primary" name="sendA" value="'._('A').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendB" value="'._('B').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
+echo('<br>');
 $results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM solution_wiscrowd GROUP BY guess ORDER BY guess ASC');
 $numA = 0;
 $numB = 0;
