@@ -36,7 +36,7 @@ if(isset($_POST['guess']) && !isset($_POST['reset']) && !isset($_POST['check']))
 
     $PDOX->queryDie("DELETE FROM {$p}solution_wiscrowd");
 
-    //header('Location: '.addSession('index.php') ) ;
+    header('Location: '.addSession('index.php') ) ;
     return;
     
 }
@@ -93,8 +93,13 @@ $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messag
 echo('<form method="post">');
 echo("Enter guess:\n");
 echo('<input type="text" name="guess" value=""> ');
-echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Guess').'"> ');
-   
+
+echo('<input type="submit" class="btn btn-primary" name="send" value="'._('A').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="send" value="'._('B').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="send" value="'._('Submit').'"> ');
+
 $results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM solution_wiscrowd GROUP BY guess ORDER BY guess ASC');
 $numA = 0;
 $numB = 0;
@@ -130,44 +135,15 @@ while($taken < $size){
 
 }
 
-      $rows = array();
+      
       $table = array();
-      $table['cols'] = array(
-
-        // Labels for your chart, these represent the column titles.
-        /* 
-            note that one column is in "string" format and another one is in "number" format 
-            as pie chart only required "numbers" for calculating percentage 
-            and string will be used for Slice title
-        */
-
-        array('label' => 'user_id', 'type' => 'number'),
-        array('label' => 'guesses', 'type' => 'number')
-
-    );
-        /* Extract the information from $result */
-        /*foreach($results as $r) {
-
-          $temp = array();
-
-          // the following line will be used to slice the Pie chart
-
-          $temp[] = array('v' => (int) $r['user_id']); 
-
-          // Values of each slice
-
-          $temp[] = array('v' => (int) $r['guess']); 
-          $rows[] = array('c' => $temp);
-        }
-
-    $table['rows'] = $rows;
-*/
+      
     
     // convert data into JSON format
     $jsonTable = json_encode($table);
     //echo $jsonTable;
    
-echo('<p id="timerOutput" style = "position:absolute; top:0px; right:0px; font-family:verdana; font-size:500%; ">00:00</p>');
+
 // Dump out the session information
 // This is here for initial debugging only - it should not be part of the final project.
 // Note that addSession() is not needed here because PHP autmatically handles
@@ -175,18 +151,25 @@ echo('<p id="timerOutput" style = "position:absolute; top:0px; right:0px; font-f
 if ( $USER->instructor) {
 
 ?>
-<input type="submit" class="btn btn-info" name="toggle" onclick="$('#chart_div').toggle(); return false;" value="Show answers">
-<!--<input type="submit" name="check" class="btn btn-success" value="Check answers">-->
+
 <input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
-<?php
-    echo("</form>");
-?>
+</form>
+<span>
+<button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
+<button type="submit" Style="position:absolute; top:0px; right:0px"class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show answers</button>
+<!--<input type="submit" name="check" class="btn btn-success" value="Check answers">-->
 
-<button style="position:relative" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
 
-<script type="text/javascript" src = "https://www.google.com/jsapi"></script>
-<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+
+
+<p id="timerOutput" style = "position:relative; float:right; font-family:verdana; font-size:450%; clear:both">00:00</p>
+</span>
 <script type="text/javascript" src = "script.js"></script>
+<!--<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
+<script type="text/javascript" src = "https://www.google.com/jsapi"></script>
+
+
   <script type="text/javascript">
 
       // Load the Visualization API and the piechart package.
@@ -211,42 +194,30 @@ if ( $USER->instructor) {
        ]);
 
         // Set chart options
-        /*var options = {'title':'Answer Distribution',
-                       'width':800,
-                       'height':600
-                   };
-                   */
-        // Instantiate and draw our chart, passing in some options.
-        //var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        //chart.draw(data, options);
-        //var data = new google.visualization.DataTable(<?=$jsonTable?>);
         
-          var options = {
+        var options = {
             legend: 'none',
             title: 'Answer Distribution',
             width: 800,
             height: 600,
             bar:{groupwidth:'95%'},
-            vAxis:{title:'Quantity'},
-            hAxis:{title:'Answers'}
+            vAxis:{title:'Quantity', viewWindow:{min:0}},
+            hAxis:{title:'Answers',}
           };
           // Instantiate and draw our chart, passing in some options.
           // Do not forget to check your div ID
           var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
           chart.draw(data, options);
-    }    
+        }    
     </script>
 
     
     
-    <div id="chart_div"></div>
+    <div id="chart_div" style="display:none"></div>
 
     
 
     <?
-    //echo('<p><a href="debug.php" target="_blank">Debug Print Session Data</a></p>');
-    //echo("\n");
-        
     
 }
 
