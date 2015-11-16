@@ -4,22 +4,24 @@ $DATABASE_UNINSTALL = "drop table if exists {$CFG->dbprefix}solution_wiscrowd";
 
 $DATABASE_INSTALL = array(
 array( "{$CFG->dbprefix}solution_wiscrowd",
-"create table {$CFG->dbprefix}solution_wiscrowd (
-    link_id     INTEGER NOT NULL,
-    user_id     INTEGER NOT NULL,
-    guess       FLOAT,
-	attend		DATETIME NOT NULL,
-	
-    CONSTRAINT `{$CFG->dbprefix}solution_wiscrowd_ibfk_1`
-        FOREIGN KEY (`link_id`)
-        REFERENCES `{$CFG->dbprefix}lti_link` (`link_id`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+"
+CREATE TABLE `clicker` (
+ `link_id` int(11) NOT NULL,
+ `user_id` int(11) NOT NULL,
+ `guess` float DEFAULT NULL,
+ `attend` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT `{$CFG->dbprefix}solution_wiscrowd_ibfk_2`
-        FOREIGN KEY (`user_id`)
-        REFERENCES `{$CFG->dbprefix}lti_user` (`user_id`)
-        ON DELETE CASCADE ON UPDATE CASCADE,
+ UNIQUE KEY `link_id` (`link_id`,`user_id`),
+ KEY `clicker_ibfk_2` (`user_id`),
 
-    UNIQUE(link_id, user_id)
-) ENGINE = InnoDB DEFAULT CHARSET=utf8"));
+ CONSTRAINT `clicker_ibfk_1` 
+   FOREIGN KEY (`link_id`) 
+   REFERENCES `lti_link` (`link_id`) 
+   ON DELETE CASCADE ON UPDATE CASCADE,
 
+ CONSTRAINT `clicker_ibfk_2` 
+   FOREIGN KEY (`user_id`)
+   REFERENCES `lti_user` (`user_id`) 
+   ON DELETE CASCADE ON UPDATE CASCADE
+   
+) ENGINE=InnoDB DEFAULT CHARSET=utf8"));

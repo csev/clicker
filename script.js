@@ -8,12 +8,13 @@ function startPause(){
 		running = true;
 		increment();
 		document.getElementById("startPause").innerHTML = "Pause";
-
+	
 	}
 	else{
 
 		running = false;
 		document.getElementById("startPause").innerHTML = "Resume";
+
 	}
 }
 
