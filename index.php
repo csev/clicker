@@ -173,24 +173,24 @@ $size = sizeof($results);
 while($taken < $size){
 
   //taken == 0
-  if(@results[$taken]['total'] != null && @$results[$taken]['guess'] == 0){
+  if(@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 0){
 
     $numA = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 1){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 1){
     $numB = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 2){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 2){
     $numC = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 3){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 3){
     $numD = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 4){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 4){
     $numE = 0 + $results[$taken]['total'];
     $taken ++;
   }
