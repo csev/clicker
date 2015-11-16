@@ -18,7 +18,7 @@ $p = $CFG->dbprefix;
 if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
-    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+  $PDOX->queryDie("INSERT INTO {$p}clicker
             (link_id, user_id, guess, attend)
             VALUES ( :LI, :UI, :GU, NOW() )
             ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
@@ -35,7 +35,7 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 }else if(isset($_POST['sendB']) && !isset($_POST['reset'])){
 
     
-    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+  $PDOX->queryDie("INSERT INTO {$p}clicker
             (link_id, user_id, guess, attend)
             VALUES ( :LI, :UI, :GU, NOW() )
             ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
@@ -52,7 +52,7 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 }else if(isset($_POST['sendC']) && !isset($_POST['reset'])){
 
     
-    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+  $PDOX->queryDie("INSERT INTO {$p}clicker
             (link_id, user_id, guess, attend)
             VALUES ( :LI, :UI, :GU, NOW() )
             ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
@@ -70,7 +70,7 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
 
     
-    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+  $PDOX->queryDie("INSERT INTO {$p}clicker
             (link_id, user_id, guess, attend)
             VALUES ( :LI, :UI, :GU, NOW() )
             ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
@@ -88,7 +88,7 @@ else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
 else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
 
     
-    $PDOX->queryDie("INSERT INTO {$p}solution_wiscrowd
+  $PDOX->queryDie("INSERT INTO {$p}clicker
             (link_id, user_id, guess, attend)
             VALUES ( :LI, :UI, :GU, NOW() )
             ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
@@ -105,7 +105,7 @@ else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
 }
 else if(isset($_POST['reset']) && $USER->instructor){
 
-    $PDOX->queryDie("DELETE FROM {$p}solution_wiscrowd");
+    $PDOX->queryDie("DELETE FROM {$p}clicker");
 
     header('Location: '.addSession('index.php') ) ;
     return;
@@ -121,7 +121,7 @@ if ( isset($_POST["check"])) {
 
         //Calculate Average
         //$guessNum = $PDOX->queryDie("SELECT COUNT(user_id) FROM {$p} solution_wiscrowd");
-  $rows = $PDOX->allRowsDie("SELECT link_id, user_id, guess, attend FROM {$p}solution_wiscrowd
+  $rows = $PDOX->allRowsDie("SELECT link_id, user_id, guess, attend FROM {$p}clicker
     WHERE link_id = :LI ORDER BY attend DESC",
     array(':LI' => $LINK->id)
     );
@@ -171,7 +171,7 @@ echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').
 echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
 echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
 
-$results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM solution_wiscrowd GROUP BY guess ORDER BY guess ASC');
+$results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM clicker GROUP BY guess ORDER BY guess ASC');
 $numA = 0;
 $numB = 0;
 $numC = 0;
@@ -230,13 +230,15 @@ if ( $USER->instructor) {
   
 <button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
 <button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show answers</button>
+
 <!--<input type="submit" name="check" class="btn btn-success" value="Check answers">-->
+<p id="timerOutput" style = "font-family:verdana; font-size:450%; clear:both">00:00</p>
 </div>
 
 
 
 
-<p id="timerOutput" style = "position:relative; float:right; font-family:verdana; font-size:450%; clear:both">00:00</p>
+
 
 <script type="text/javascript" src = "script.js"></script>
 <!--<script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
@@ -269,7 +271,7 @@ if ( $USER->instructor) {
         // Set chart options
         
         var options = {
-            legend: 'none',
+            legend:'none',
             title: 'Answer Distribution',
             width: 800,
             height: 600,
@@ -279,15 +281,17 @@ if ( $USER->instructor) {
           };
           // Instantiate and draw our chart, passing in some options.
           // Do not forget to check your div ID
-          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-          chart.draw(data, options);
+          var colchart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+          
+          colchart.draw(data, options);
+          
         }    
     </script>
 
     
     
     <div id="chart_div" style="display:none"></div>
-
+    
     
 
     <?
@@ -299,3 +303,4 @@ if ( $USER->instructor) {
 // And put out the common footer material
 
 $OUTPUT->footer();
+
