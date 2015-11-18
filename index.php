@@ -162,7 +162,7 @@ echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').
 echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
 echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
 
-$results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM clicker GROUP BY guess ORDER BY guess ASC');
+$results = $PDOX->allRowsDie("SELECT guess, COUNT(guess) AS total FROM {$p}clicker GROUP BY guess ORDER BY guess ASC");
 $numA = 0;
 $numB = 0;
 $numC = 0;
