@@ -1,11 +1,11 @@
 <?php
 
-$DATABASE_UNINSTALL = "drop table if exists {$CFG->dbprefix}solution_wiscrowd";
+$DATABASE_UNINSTALL = "drop table if exists {$CFG->dbprefix}clicker";
 
 $DATABASE_INSTALL = array(
-array( "{$CFG->dbprefix}solution_wiscrowd",
+array( "{$CFG->dbprefix}clicker",
 "
-CREATE TABLE `clicker` (
+CREATE TABLE `{$CFG->dbprefix}clicker` (
  `link_id` int(11) NOT NULL,
  `user_id` int(11) NOT NULL,
  `guess` float DEFAULT NULL,
