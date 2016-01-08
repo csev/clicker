@@ -14,9 +14,9 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend)
-            VALUES ( :LI, :UI, :GU, NOW() )
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+            (link_id, user_id, guess, attend, count)
+            VALUES ( :LI, :UI, :GU, NOW(), 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
@@ -31,9 +31,9 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend)
-            VALUES ( :LI, :UI, :GU, NOW() )
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+            (link_id, user_id, guess, attend, count)
+            VALUES ( :LI, :UI, :GU, NOW(), 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
@@ -48,9 +48,9 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend)
-            VALUES ( :LI, :UI, :GU, NOW() )
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+            (link_id, user_id, guess, attend, count)
+            VALUES ( :LI, :UI, :GU, NOW(), 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
@@ -66,9 +66,9 @@ else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend)
-            VALUES ( :LI, :UI, :GU, NOW() )
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+            (link_id, user_id, guess, attend, count)
+            VALUES ( :LI, :UI, :GU, NOW(), 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
@@ -84,9 +84,9 @@ else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend)
-            VALUES ( :LI, :UI, :GU, NOW() )
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW()",
+            (link_id, user_id, guess, attend, count)
+            VALUES ( :LI, :UI, :GU, NOW(), 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
@@ -162,7 +162,7 @@ echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').
 echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
 echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
 
-$results = $PDOX->allRowsDie('SELECT guess, COUNT(guess) AS total FROM clicker GROUP BY guess ORDER BY guess ASC');
+$results = $PDOX->allRowsDie("SELECT guess, COUNT(guess) AS total FROM {$p}clicker GROUP BY guess ORDER BY guess ASC");
 $numA = 0;
 $numB = 0;
 $numC = 0;
@@ -173,24 +173,24 @@ $size = sizeof($results);
 while($taken < $size){
 
   //taken == 0
-  if(@results[$taken]['total'] != null && @$results[$taken]['guess'] == 0){
+  if(@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 0){
 
     $numA = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 1){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 1){
     $numB = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 2){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 2){
     $numC = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 3){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 3){
     $numD = 0 + $results[$taken]['total'];
     $taken ++;
   }
-  elseif (@results[$taken]['total'] != null && @$results[$taken]['guess'] == 4){
+  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 4){
     $numE = 0 + $results[$taken]['total'];
     $taken ++;
   }
