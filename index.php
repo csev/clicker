@@ -100,7 +100,9 @@ else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
 }
 else if(isset($_POST['reset']) && $USER->instructor){
 
-    $PDOX->queryDie("DELETE FROM {$p}clicker");
+    $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5");
+    $PDOX->queryDie("UPDATE {$p}clicker SET count = count - 1 WHERE count > 0");
+                   
 
     header('Location: '.addSession('index.php') ) ;
     return;
