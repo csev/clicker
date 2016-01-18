@@ -3,6 +3,7 @@ require_once "../../config.php";
 require_once $CFG->dirroot."/pdo.php";
 require_once $CFG->dirroot."/lib/lms_lib.php";
 
+use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
 
 // Retrieve required launch data from session
@@ -14,13 +15,14 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, count)
-            VALUES ( :LI, :UI, :GU, NOW(), 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
+            (link_id, user_id, guess, attend, ipaddr, count)
+            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+            ON DUPLICATE KEY UPDATE  guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
-                        ':GU' => 0
+                        ':GU' => 0,
+                        ':IP' => $_SERVER["REMOTE_ADDR"]
                         ));
 
   
@@ -31,13 +33,14 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, count)
-            VALUES ( :LI, :UI, :GU, NOW(), 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
+            (link_id, user_id, guess, attend, ipaddr, count)
+            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
-                        ':GU' => 1
+                        ':GU' => 1,
+                        ':IP' => $_SERVER["REMOTE_ADDR"]
                         ));
 
   
@@ -48,13 +51,14 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, count)
-            VALUES ( :LI, :UI, :GU, NOW(), 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
+            (link_id, user_id, guess, attend, ipaddr, count)
+            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
-                        ':GU' => 2
+                        ':GU' => 2,
+                        ':IP' => $_SERVER['REMOTE_ADDR']
                         ));
 
   
@@ -66,13 +70,14 @@ else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, count)
-            VALUES ( :LI, :UI, :GU, NOW(), 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
+            (link_id, user_id, guess, attend, ipaddr, count)
+            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(),  ipaddr = :IP, count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
-                        ':GU' => 3
+                        ':GU' => 3,
+                        ':IP' => $_SERVER["REMOTE_ADDR"]
                         ));
 
   
@@ -84,13 +89,14 @@ else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
 
     
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, count)
-            VALUES ( :LI, :UI, :GU, NOW(), 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), count = count + 1",
+            (link_id, user_id, guess, attend, ipaddr, count)
+            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
                     array(
                         ':LI' => $LINK->id,
                         ':UI' => $USER->id,
-                        ':GU' => 4
+                        ':GU' => 4,
+                        ':IP' => $_SERVER["REMOTE_ADDR"]
                         ));
 
   
@@ -171,32 +177,36 @@ $numC = 0;
 $numD = 0;
 $numE = 0;
 $taken = 0;
+// die("A");
 $size = sizeof($results);
+
+
+//D3 Calendar
 while($taken < $size){
 
   //taken == 0
   if(@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 0){
 
     $numA = 0 + $results[$taken]['total'];
-    $taken ++;
+    
   }
   elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 1){
     $numB = 0 + $results[$taken]['total'];
-    $taken ++;
+    
   }
   elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 2){
     $numC = 0 + $results[$taken]['total'];
-    $taken ++;
+    
   }
   elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 3){
     $numD = 0 + $results[$taken]['total'];
-    $taken ++;
+    
   }
   elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 4){
     $numE = 0 + $results[$taken]['total'];
-    $taken ++;
+    
   }
-
+  $taken ++;
 }
 
       
@@ -205,8 +215,7 @@ while($taken < $size){
     
     // convert data into JSON format
   $jsonTable = json_encode($table);
-   
-
+ 
 
 if ( $USER->instructor) {
 
