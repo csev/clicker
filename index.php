@@ -13,106 +13,106 @@ $p = $CFG->dbprefix;
 //Handling post data
 if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
-    
+
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, ipaddr, count)
-            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-            ON DUPLICATE KEY UPDATE  guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
-                    array(
-                        ':LI' => $LINK->id,
-                        ':UI' => $USER->id,
-                        ':GU' => 0,
-                        ':IP' => $_SERVER["REMOTE_ADDR"]
-                        ));
+    (link_id, user_id, guess, attend, ipaddr, count)
+    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+    ON DUPLICATE KEY UPDATE  guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    array(
+      ':LI' => $LINK->id,
+      ':UI' => $USER->id,
+      ':GU' => 0,
+      ':IP' => $_SERVER["REMOTE_ADDR"]
+      ));
 
   
-   $_SESSION['success'] = 'Guess Recorded';
-   header('Location: '.addSession('index.php') ) ;
-   return;
+  $_SESSION['success'] = 'Guess Recorded';
+  header('Location: '.addSession('index.php') ) ;
+  return;
 }else if(isset($_POST['sendB']) && !isset($_POST['reset'])){
 
-    
+
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, ipaddr, count)
-            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
-                    array(
-                        ':LI' => $LINK->id,
-                        ':UI' => $USER->id,
-                        ':GU' => 1,
-                        ':IP' => $_SERVER["REMOTE_ADDR"]
-                        ));
+    (link_id, user_id, guess, attend, ipaddr, count)
+    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    array(
+      ':LI' => $LINK->id,
+      ':UI' => $USER->id,
+      ':GU' => 1,
+      ':IP' => $_SERVER["REMOTE_ADDR"]
+      ));
 
   
-   $_SESSION['success'] = 'Guess Recorded';
-   header('Location: '.addSession('index.php') ) ;
-   return;
+  $_SESSION['success'] = 'Guess Recorded';
+  header('Location: '.addSession('index.php') ) ;
+  return;
 }else if(isset($_POST['sendC']) && !isset($_POST['reset'])){
 
-    
+
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, ipaddr, count)
-            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
-                    array(
-                        ':LI' => $LINK->id,
-                        ':UI' => $USER->id,
-                        ':GU' => 2,
-                        ':IP' => $_SERVER['REMOTE_ADDR']
-                        ));
+    (link_id, user_id, guess, attend, ipaddr, count)
+    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    array(
+      ':LI' => $LINK->id,
+      ':UI' => $USER->id,
+      ':GU' => 2,
+      ':IP' => $_SERVER['REMOTE_ADDR']
+      ));
 
   
-   $_SESSION['success'] = 'Guess Recorded';
-   header('Location: '.addSession('index.php') ) ;
-   return;
+  $_SESSION['success'] = 'Guess Recorded';
+  header('Location: '.addSession('index.php') ) ;
+  return;
 }
 else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
 
-    
+
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, ipaddr, count)
-            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(),  ipaddr = :IP, count = count + 1",
-                    array(
-                        ':LI' => $LINK->id,
-                        ':UI' => $USER->id,
-                        ':GU' => 3,
-                        ':IP' => $_SERVER["REMOTE_ADDR"]
-                        ));
+    (link_id, user_id, guess, attend, ipaddr, count)
+    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(),  ipaddr = :IP, count = count + 1",
+    array(
+      ':LI' => $LINK->id,
+      ':UI' => $USER->id,
+      ':GU' => 3,
+      ':IP' => $_SERVER["REMOTE_ADDR"]
+      ));
 
   
-   $_SESSION['success'] = 'Guess Recorded';
-   header('Location: '.addSession('index.php') ) ;
-   return;
+  $_SESSION['success'] = 'Guess Recorded';
+  header('Location: '.addSession('index.php') ) ;
+  return;
 }
 else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
 
-    
+
   $PDOX->queryDie("INSERT INTO {$p}clicker
-            (link_id, user_id, guess, attend, ipaddr, count)
-            VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-            ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
-                    array(
-                        ':LI' => $LINK->id,
-                        ':UI' => $USER->id,
-                        ':GU' => 4,
-                        ':IP' => $_SERVER["REMOTE_ADDR"]
-                        ));
+    (link_id, user_id, guess, attend, ipaddr, count)
+    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    array(
+      ':LI' => $LINK->id,
+      ':UI' => $USER->id,
+      ':GU' => 4,
+      ':IP' => $_SERVER["REMOTE_ADDR"]
+      ));
 
   
-   $_SESSION['success'] = 'Guess Recorded';
-   header('Location: '.addSession('index.php') ) ;
-   return;
+  $_SESSION['success'] = 'Guess Recorded';
+  header('Location: '.addSession('index.php') ) ;
+  return;
 }
 else if(isset($_POST['reset']) && $USER->instructor){
 
-    $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5");
-    $PDOX->queryDie("UPDATE {$p}clicker SET count = count - 1 WHERE count > 0");
-                   
+  $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5");
+  $PDOX->queryDie("UPDATE {$p}clicker SET count = count - 1 WHERE count > 0");
 
-    header('Location: '.addSession('index.php') ) ;
-    return;
-    
+
+  header('Location: '.addSession('index.php') ) ;
+  return;
+
 }
 
 if ( isset($_POST["check"])) {
@@ -209,36 +209,76 @@ while($taken < $size){
   $taken ++;
 }
 
-      
-  $table = array();
-      
-    
+
+$table = array();
+
+
     // convert data into JSON format
-  $jsonTable = json_encode($table);
- 
+$jsonTable = json_encode($table);
+
 
 if ( $USER->instructor) {
 
-?>
+  ?>
 
-<input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
-<input type="submit" name="reset" class="btn btn-success"  value="Calendar" onclick="reset()">
+  <input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
+
 </form>
 
 <div style = "position:absolute; top:0px; right:0px">
-<button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show answers</button>  
-<button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
+  <button type="submit" name="toggle" class="btn btn-success"  id="Calendar" onclick="$('#calender-map').toggle();"> Calendar</button>
+  <button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show chart</button>  
+  <button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
 
-<p id="timerOutput" style = "font-family:verdana; font-size:450%; ">00:00</p>
+  <p id="timerOutput" style = "font-family:verdana; font-size:450%; ">00:00</p>
 
 </div>
 
+<!--Calendar Heatmap-->
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+<link href="bootstrap.css" rel="stylesheet" /> 
+<script type="text/javascript" src="bootstrap.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<style>
+.calender-map {
+  font: 10px sans-serif;
+  shape-rendering: crispEdges;
+}
+.day {
+  stroke: #666;
+}
+.month {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+.RdYlGn .q0-11{fill:rgb(165,0,38)}
+.RdYlGn .q1-11{fill:rgb(215,48,39)}
+.RdYlGn .q2-11{fill:rgb(244,109,67)}
+.RdYlGn .q3-11{fill:rgb(253,174,97)}
+.RdYlGn .q4-11{fill:rgb(254,224,139)}
+.RdYlGn .q5-11{fill:rgb(255,255,191)}
+.RdYlGn .q6-11{fill:rgb(217,239,139)}
+.RdYlGn .q7-11{fill:rgb(166,217,106)}
+.RdYlGn .q8-11{fill:rgb(102,189,99)}
+.RdYlGn .q9-11{fill:rgb(26,152,80)}
+.RdYlGn .q10-11{fill:rgb(0,104,55)}
+</style>
+
+<div class="calender-map"></div>
+
+<script type="text/javascript" src="calendermap.js"></script>
+<!--End of Calendar HeatMap-->
+
+
+<!---Google chart-->
 <script type="text/javascript" src = "script.js"></script>
 
 <script type="text/javascript" src = "https://www.google.com/jsapi"></script>
 
 
-  <script type="text/javascript">
+<script type="text/javascript">
 
       // Load the Visualization API and the piechart package.
       google.load('visualization', '1.0', {'packages':['corechart']});
@@ -257,21 +297,21 @@ if ( $USER->instructor) {
          ['A', <?=$numA?>, 'red', 'A'],            
          ['B', <?=$numB?>, 'blue', 'B'],           
          ['C', <?=$numC?>, 'grey', 'C'],
-       ['D', <?=$numD?>, 'green', 'D'], 
-       ['E', <?=$numE?>, 'purple', 'E'], 
-       ]);
+         ['D', <?=$numD?>, 'green', 'D'], 
+         ['E', <?=$numE?>, 'purple', 'E'], 
+         ]);
 
         // Set chart options
         
         var options = {
-            legend:'none',
-            title: 'Answer Distribution',
-            width: 800,
-            height: 600,
-            bar:{groupwidth:'95%'},
-            vAxis:{title:'Quantity', viewWindow:{min:0}},
-            hAxis:{title:'Answers',}
-          };
+          legend:'none',
+          title: 'Answer Distribution',
+          width: 800,
+          height: 600,
+          bar:{groupwidth:'95%'},
+          vAxis:{title:'Quantity', viewWindow:{min:0}},
+          hAxis:{title:'Answers',}
+        };
           // Instantiate and draw our chart, passing in some options.
           // Do not forget to check your div ID
           var colchart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -279,15 +319,17 @@ if ( $USER->instructor) {
           colchart.draw(data, options);
           
         }    
-    </script>
-    
-    <div id="chart_div" style="display:none"></div>
+        </script>
 
-    <?
-}
+        <div id="chart_div" style="display:none"></div>
+        <!--End of Google chart-->
+
+
+        <?
+      }
 
 // Finish the body (including loading JavaScript for JQUery and Bootstrap)
 // And put out the common footer material
 
-$OUTPUT->footer();
+      $OUTPUT->footer();
 
