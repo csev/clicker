@@ -222,12 +222,13 @@ if ( $USER->instructor) {
 ?>
 
 <input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
+<input type="submit" name="reset" class="btn btn-success"  value="Calendar" onclick="reset()">
 </form>
 
 <div style = "position:absolute; top:0px; right:0px">
-  
+<button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show answers</button>  
 <button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
-<button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show answers</button>
+
 <p id="timerOutput" style = "font-family:verdana; font-size:450%; ">00:00</p>
 
 </div>
