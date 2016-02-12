@@ -226,9 +226,9 @@ if ( $USER->instructor) {
 <div style = "position:absolute; top:0px; right:0px">
   <button type="submit" name="toggle" class="btn btn-success"  id="Calendar" onclick="$('#calendar_div').toggle();"> Calendar</button>
   <button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show chart</button>  
-  <button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
+  <!--<button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
 
-  <p id="timerOutput" style = "font-family:verdana; font-size:450%; ">00:00</p>
+  <p id="timerOutput" style = "font-family:verdana; font-size:450%; ">00:00</p>-->
 
 </div>
 
@@ -242,6 +242,7 @@ if ( $USER->instructor) {
   .calender-map {
       font: 10px sans-serif;
       shape-rendering: crispEdges;
+      display:none;
     }
     .day {
       stroke: #666;
