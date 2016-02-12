@@ -132,8 +132,6 @@ if ( isset($_POST["check"])) {
 
   foreach ( $rows as $row ) {
 
-
-
     echo("<tr><td>");
     echo(htmlent_utf8($row['guess']));
     echo("</td></tr>");
@@ -181,7 +179,7 @@ $taken = 0;
 $size = sizeof($results);
 
 
-//D3 Calendar
+
 while($taken < $size){
 
   //taken == 0
@@ -226,7 +224,7 @@ if ( $USER->instructor) {
 </form>
 
 <div style = "position:absolute; top:0px; right:0px">
-  <button type="submit" name="toggle" class="btn btn-success"  id="Calendar" onclick="$('#calender-map').toggle();"> Calendar</button>
+  <button type="submit" name="toggle" class="btn btn-success"  id="Calendar" onclick="$('#calendar_div').toggle();"> Calendar</button>
   <button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show chart</button>  
   <button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
 
@@ -234,41 +232,43 @@ if ( $USER->instructor) {
 
 </div>
 
-<!--Calendar Heatmap-->
+<!---Calendar Heatmap-->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-
-<link href="bootstrap.css" rel="stylesheet" /> 
-<script type="text/javascript" src="bootstrap.min.js"></script> 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<style>
-.calender-map {
-  font: 10px sans-serif;
-  shape-rendering: crispEdges;
-}
-.day {
-  stroke: #666;
-}
-.month {
-  fill: none;
-  stroke: #000;
-  stroke-width: 2px;
-}
-.RdYlGn .q0-11{fill:rgb(165,0,38)}
-.RdYlGn .q1-11{fill:rgb(215,48,39)}
-.RdYlGn .q2-11{fill:rgb(244,109,67)}
-.RdYlGn .q3-11{fill:rgb(253,174,97)}
-.RdYlGn .q4-11{fill:rgb(254,224,139)}
-.RdYlGn .q5-11{fill:rgb(255,255,191)}
-.RdYlGn .q6-11{fill:rgb(217,239,139)}
-.RdYlGn .q7-11{fill:rgb(166,217,106)}
-.RdYlGn .q8-11{fill:rgb(102,189,99)}
-.RdYlGn .q9-11{fill:rgb(26,152,80)}
-.RdYlGn .q10-11{fill:rgb(0,104,55)}
-</style>
-
+  
+    <link href="bootstrap.css" rel="stylesheet" /> 
+    <script type="text/javascript" src="bootstrap.min.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <style>
+  .calender-map {
+      font: 10px sans-serif;
+      shape-rendering: crispEdges;
+    }
+    .day {
+      stroke: #666;
+    }
+    .month {
+      fill: none;
+      stroke: #000;
+      stroke-width: 2px;
+    }
+    .RdYlGn .q0-11{fill:rgb(165,0,38)}
+    .RdYlGn .q1-11{fill:rgb(215,48,39)}
+    .RdYlGn .q2-11{fill:rgb(244,109,67)}
+    .RdYlGn .q3-11{fill:rgb(253,174,97)}
+    .RdYlGn .q4-11{fill:rgb(254,224,139)}
+    .RdYlGn .q5-11{fill:rgb(255,255,191)}
+    .RdYlGn .q6-11{fill:rgb(217,239,139)}
+    .RdYlGn .q7-11{fill:rgb(166,217,106)}
+    .RdYlGn .q8-11{fill:rgb(102,189,99)}
+    .RdYlGn .q9-11{fill:rgb(26,152,80)}
+    .RdYlGn .q10-11{fill:rgb(0,104,55)}
+    </style>
+</head>
+<body>
 <div class="calender-map"></div>
-
 <script type="text/javascript" src="calendermap.js"></script>
+
+
 <!--End of Calendar HeatMap-->
 
 
