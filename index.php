@@ -265,7 +265,7 @@ if ( $USER->instructor) {
     </style>
 </head>
 <body>
-<div class="calender-map"></div>
+<div class="calender-map" id="calendar_div"></div>
 <script type="text/javascript" src="calendermap.js"></script>
 
 
