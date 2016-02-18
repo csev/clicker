@@ -225,7 +225,7 @@ if ( $USER->instructor) {
 
 <div style = "position:absolute; top:0px; right:0px">
   <button type="submit" name="toggle" class="btn btn-success"  id="Calendar" onclick="$('#calendar_div').toggle();"> Calendar</button>
-  <button type="submit" class="btn btn-info" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Show chart</button>  
+  <button type="submit" class="btn btn-success" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Chart</button>  
   <!--<button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
 
   <p id="timerOutput" style = "font-family:verdana; font-size:450%; ">00:00</p>-->
