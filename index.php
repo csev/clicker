@@ -220,7 +220,7 @@ if ( $USER->instructor) {
   ?>
 
   <input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
-
+  <a href="x.php" target="_blank">link</a>
 </form>
 
 <div style = "position:absolute; top:0px; right:0px">
@@ -267,14 +267,14 @@ if ( $USER->instructor) {
 </head>
 <body>
 <div class="calender-map" id="calendar_div"></div>
-<script type="text/javascript" src="calendermap.js"></script>
+<script type="text/javascript" src="calendermap.js?x=<?= time() ?>"></script>
 
 
 <!--End of Calendar HeatMap-->
 
 
 <!---Google chart-->
-<script type="text/javascript" src = "script.js"></script>
+<script type="text/javascript" src = "script.js?"></script>
 
 <script type="text/javascript" src = "https://www.google.com/jsapi"></script>
 

@@ -8,10 +8,10 @@ array( "{$CFG->dbprefix}clicker",
  `link_id` int(11) NOT NULL,
  `user_id` int(11) NOT NULL,
  `guess` float DEFAULT NULL,
- `attend` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `count` int(11) NOT NULL,
+ `attend` Date NOT NULL DEFAULT NULL,
+ `ipaddr` VARCHAR(64) DEFAULT NULL,
 
- UNIQUE KEY `link_id` (`link_id`,`user_id`),
- KEY `{$CFG->dbprefix}clicker_ibfk_2` (`user_id`),
 
  CONSTRAINT `{$CFG->dbprefix}clicker_ibfk_1` 
    FOREIGN KEY (`link_id`) 
