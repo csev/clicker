@@ -220,7 +220,7 @@ if ( $USER->instructor) {
   ?>
 
   <input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
-  <a href="x.php" target="_blank">link</a>
+  
 </form>
 
 <div style = "position:absolute; top:0px; right:0px">

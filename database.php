@@ -9,7 +9,7 @@ array( "{$CFG->dbprefix}clicker",
  `user_id` int(11) NOT NULL,
  `guess` float DEFAULT NULL,
  `count` int(11) NOT NULL,
- `attend` Date NOT NULL DEFAULT NULL,
+ `attend` Date DEFAULT NULL,
  `ipaddr` VARCHAR(64) DEFAULT NULL,
 
 
@@ -21,6 +21,7 @@ array( "{$CFG->dbprefix}clicker",
  CONSTRAINT `{$CFG->dbprefix}clicker_ibfk_2` 
    FOREIGN KEY (`user_id`)
    REFERENCES `{$CFG->dbprefix}lti_user` (`user_id`) 
-   ON DELETE CASCADE ON UPDATE CASCADE
-   
+   ON DELETE CASCADE ON UPDATE CASCADE,
+
+   UNIQUE(link_id, user_id, attend)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8"));
