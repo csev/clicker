@@ -47,11 +47,18 @@ var rect = svg.selectAll(".day")
     .attr("x", function(d) { return week(d) * cellSize; })
     .attr("y", function(d) { return day(d) * cellSize; })
     .attr("fill",'#fff')
+    .on("click", click_function)
     .datum(format);
 
+function click_function(){
+
+  var url = 'index.php' + this.id;
+
+    window.location = url;
+}
 rect.append("title")
     .text(function(d) { return d; });
-    
+
 var legend = svg.selectAll(".legend")
       .data(month)
     .enter().append("g")

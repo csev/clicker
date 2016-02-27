@@ -17,7 +17,7 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
   $PDOX->queryDie("INSERT INTO {$p}clicker
     (link_id, user_id, guess, attend, ipaddr, count)
     VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE  guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    ON DUPLICATE KEY UPDATE  guess = :GU, ipaddr = :IP, count = count + 1",
     array(
       ':LI' => $LINK->id,
       ':UI' => $USER->id,
@@ -35,7 +35,7 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
   $PDOX->queryDie("INSERT INTO {$p}clicker
     (link_id, user_id, guess, attend, ipaddr, count)
     VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
     array(
       ':LI' => $LINK->id,
       ':UI' => $USER->id,
@@ -53,7 +53,7 @@ if(isset($_POST['sendA']) && !isset($_POST['reset'])){
   $PDOX->queryDie("INSERT INTO {$p}clicker
     (link_id, user_id, guess, attend, ipaddr, count)
     VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
     array(
       ':LI' => $LINK->id,
       ':UI' => $USER->id,
@@ -72,7 +72,7 @@ else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
   $PDOX->queryDie("INSERT INTO {$p}clicker
     (link_id, user_id, guess, attend, ipaddr, count)
     VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(),  ipaddr = :IP, count = count + 1",
+    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
     array(
       ':LI' => $LINK->id,
       ':UI' => $USER->id,
@@ -91,7 +91,7 @@ else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
   $PDOX->queryDie("INSERT INTO {$p}clicker
     (link_id, user_id, guess, attend, ipaddr, count)
     VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, attend = NOW(), ipaddr = :IP, count = count + 1",
+    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
     array(
       ':LI' => $LINK->id,
       ':UI' => $USER->id,
@@ -226,9 +226,12 @@ if ( $USER->instructor) {
 <div style = "position:absolute; top:0px; right:0px">
   <button type="submit" name="toggle" class="btn btn-success"  id="Calendar" onclick="$('#calendar_div').toggle();"> Calendar</button>
   <button type="submit" class="btn btn-success" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Chart</button>  
-  <!--<button style="position:none;" class="btn btn-success" id="startPause" onclick="startPause()" >Start</button>
+  
+  
+  <FORM METHOD="LINK" ACTION="http://www.google.com">
 
-  <p id="timerOutput" style = "font-family:verdana; font-size:450%; ">00:00</p>-->
+<INPUT TYPE="submit" VALUE="Clickable Button">
+</FORM>
 
 </div>
 
