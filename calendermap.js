@@ -50,11 +50,29 @@ var rect = svg.selectAll(".day")
     .on("click", click_function)
     .datum(format);
 
-function click_function(){
+function click_function(d){
 
-  var url = 'index.php' + this.id;
 
-    window.location = url;
+  window.location.href = attend_url + "&date=" + d;
+// window.locaton.reload(true)
+  // var theForm, newInput1;
+  // // Start by creating a <form>
+  // theForm = document.createElement('form');
+  // theForm.action = 'index.php';
+  // theForm.method = 'post';
+  // // Next create the <input>s in the form and give them names and values
+  // newInput1 = document.createElement('input');
+  // newInput1.type = 'hidden';
+  // newInput1.name = 'input_1';
+  // newInput1.value = 'value 1';
+
+  // // Now put everything together...
+  // theForm.appendChild(newInput1);
+  
+  // // ...and it to the DOM...
+  // document.getElementById('hidden_form_container').appendChild(theForm);
+  // // ...and submit it
+  // theForm.submit();
 }
 rect.append("title")
     .text(function(d) { return d; });
