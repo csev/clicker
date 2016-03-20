@@ -17,14 +17,9 @@ $OUTPUT->header(); // Start the document and begin the <head>
 $OUTPUT->bodyStart(); // Finish the </head> and start the <body>
 $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messages
 
-
-
-
   ?>
   
-</form>
 
-<!--<button type="submit" name="toggle" class="btn btn-primary"  id="Calendar" onclick="$('#calendar_div').toggle();"> Calendar</button>-->
 
 <div style = "position:absolute; top:0px; right:0px">
   <a href="index.php" class="btn btn-default">Back to Clicker</a>
@@ -75,7 +70,7 @@ var attend_url = '<?= addSession("attendance.php") ?>';
 
 <?
 
-echo("<br></br>");
+echo("<br><br>");
 
 
   //CHECK GET[date] and parse through database
@@ -85,9 +80,11 @@ if(isset($_GET["date"])){
   $check_date = $_GET["date"];
   $check_date = substr($check_date, 0,4) .'-' . substr($check_date, 4,2) .'-' . substr($check_date, 6,2);
   
-  $results = $PDOX->allRowsDie("SELECT user_id, attend, ipaddr FROM {$p}clicker WHERE attend = :check_date ",
+  $results = $PDOX->allRowsDie("SELECT user_id, attend, ipaddr FROM {$p}clicker WHERE attend = :check_date ORDER BY user_id ASC",
         array( ':check_date' => $check_date)
         );
+
+  $_SESSION["check_date"] = $results;
 
   echo('<table border="1" style="margin-left:auto; margin-right:auto;text-align:center ">'."\n");
   echo("<tr><th>"._("User")."</th><th>"._("Attendance")."</th><th>"._("IP Address")."</th><th>"._("Attendance")."</th></tr>\n");
@@ -100,10 +97,45 @@ if(isset($_GET["date"])){
     echo("</td><td>");
     echo(htmlent_utf8($row['ipaddr']));
     echo("</td><td>");
-    echo('<input style="text-align:center" type="submit" name="check" value="'._('check').'"> ');
+    echo('<form action="" method="get">');
+    echo('<input type="hidden" name="check" value='.$row['user_id'].'> ');
+    echo('<input type="submit" value="Check">');
+    
+    echo("</form>");
     echo("</td></tr>\n");
   }
   echo("</table>\n");
+}
+
+
+
+if ( isset($_GET["check"])) {
+
+echo('<table border="1" style="margin-left:auto; margin-right:auto;text-align:center ">'."\n");
+  echo("<tr><th>"._("User")."</th><th>"._("Attendance")."</th><th>"._("IP Address")."</th><th>"._("Attendance")."</th></tr>\n");
+
+  $table = $_SESSION["check_date"];
+
+  foreach ( $table as $row ) {
+    echo "<tr><td>";
+    echo($row['user_id']);
+    echo("</td><td>");
+    echo($row['attend']);
+    echo("</td><td>");
+    echo(htmlent_utf8($row['ipaddr']));
+    echo("</td><td>");
+    echo('<form action="" method="get">');
+    echo('<input type="hidden" name="check" value='.$row['user_id'].'> ');
+    echo('<input type="submit" value="Check">');
+    
+    echo("</form>");
+    echo("</td></tr>\n");
+  }
+  echo("</table>\n");
+
+  var_dump($_GET);
+  $user = $_GET["check"];
+
 }
 
 // Finish the body (including loading JavaScript for JQUery and Bootstrap)

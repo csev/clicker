@@ -13,6 +13,8 @@ use \Tsugi\Core\LTIX;
 $LTI = LTIX::requireData();
 $p = $CFG->dbprefix;
 
+$today = date("Y-m-d");
+
 //Handling post data
 if(isset($_POST['sendA']) && !isset($_POST['reset'])){
 
@@ -109,50 +111,16 @@ else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
 }
 else if(isset($_POST['reset']) && $USER->instructor){
 
-  $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5");
-  $PDOX->queryDie("UPDATE {$p}clicker SET count = count - 1 WHERE count > 0");
+  $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5 WHERE attend = :TODAY",
+    array(':TODAY' => $today
+      ));
+  $PDOX->queryDie("UPDATE {$p}clicker SET count = count - 1 WHERE count > 0 AND attend = :TODAY",
+    array(':TODAY' => $today
+      ));
 
 
   header('Location: '.addSession('index.php') ) ;
   return;
-
-}
-
-if ( isset($_POST["check"])) {
-
-
-  $_SESSION['guessNum'] = 0;
-  $_SESSION['total'] = 0;
-  $_SESSION['average'] = 0;
-
-  
-  $rows = $PDOX->allRowsDie("SELECT link_id, user_id, guess, attend FROM {$p}clicker
-    WHERE link_id = :LI ORDER BY attend DESC",
-    array(':LI' => $LINK->id)
-    );
-  echo('<div id = "guesses">');
-  echo('<table border="0">'."\n");
-
-  foreach ( $rows as $row ) {
-
-    echo("<tr><td>");
-    echo(htmlent_utf8($row['guess']));
-    echo("</td></tr>");
-
-    $_SESSION['guessNum'] ++;
-    $_SESSION['total'] += $row['guess'];
-  }
-  if($_SESSION['guessNum'] != 0)
-    $_SESSION['average'] = $_SESSION['total'] / $_SESSION['guessNum'];
-  echo("Guesses = "), $_SESSION['guessNum'];
-  echo(" Average = "),$_SESSION['average'];
-
-
-  echo("</table>\n");
-  echo('</div>');
-
-
-  header('Location: '.addSession('index.php') ) ;
 
 }
 
@@ -171,7 +139,10 @@ echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').
 echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
 echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
 
-$results = $PDOX->allRowsDie("SELECT guess, COUNT(guess) AS total FROM {$p}clicker WHERE attend GROUP BY guess ORDER BY guess ASC");
+$results = $PDOX->allRowsDie("SELECT guess, COUNT(guess) AS total FROM {$p}clicker WHERE attend = :TODAY GROUP BY guess ORDER BY guess ASC",
+  array(':TODAY' => $today
+    ));
+
 $numA = 0;
 $numB = 0;
 $numC = 0;
