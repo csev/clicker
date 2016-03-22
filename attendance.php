@@ -4,19 +4,14 @@ require_once "../../config.php";
 require_once $CFG->dirroot."/pdo.php";
 require_once $CFG->dirroot."/lib/lms_lib.php";
 //echo('1');
-
-
 use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
-
 // Retrieve required launch data from session
 $LTI = LTIX::requireData();
 $p = $CFG->dbprefix;
-
 $OUTPUT->header(); // Start the document and begin the <head>
 $OUTPUT->bodyStart(); // Finish the </head> and start the <body>
 $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messages
-
   ?>
   
 
@@ -61,7 +56,7 @@ $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messag
 <div class="calender-map" id="calendar_div"></div>
 
 <script>
-var attend_url = '<?= addSession("attendance.php") ?>';
+var attend_url = '<?= addSession("checking.php") ?>';
 </script>
 <script type="text/javascript" src="calendermap.js?x=<?= time() ?>"></script>
 
@@ -69,26 +64,18 @@ var attend_url = '<?= addSession("attendance.php") ?>';
 <!--End of Calendar HeatMap-->
 
 <?
-
 echo("<br><br>");
-
-
   //CHECK GET[date] and parse through database
 if(isset($_GET["date"])){
-
-
   $check_date = $_GET["date"];
   $check_date = substr($check_date, 0,4) .'-' . substr($check_date, 4,2) .'-' . substr($check_date, 6,2);
   
   $results = $PDOX->allRowsDie("SELECT user_id, attend, ipaddr FROM {$p}clicker WHERE attend = :check_date ORDER BY user_id ASC",
         array( ':check_date' => $check_date)
         );
-
   $_SESSION["check_date"] = $results;
-
   echo('<table border="1" style="margin-left:auto; margin-right:auto;text-align:center ">'."\n");
   echo("<tr><th>"._("User")."</th><th>"._("Attendance")."</th><th>"._("IP Address")."</th><th>"._("Attendance")."</th></tr>\n");
-
   foreach ( $results as $row ) {
     echo "<tr><td>";
     echo($row['user_id']);
@@ -108,14 +95,10 @@ if(isset($_GET["date"])){
 }
 
 
-
 if ( isset($_GET["check"])) {
-
 echo('<table border="1" style="margin-left:auto; margin-right:auto;text-align:center ">'."\n");
   echo("<tr><th>"._("User")."</th><th>"._("Attendance")."</th><th>"._("IP Address")."</th><th>"._("Attendance")."</th></tr>\n");
-
   $table = $_SESSION["check_date"];
-
   foreach ( $table as $row ) {
     echo "<tr><td>";
     echo($row['user_id']);
@@ -132,16 +115,10 @@ echo('<table border="1" style="margin-left:auto; margin-right:auto;text-align:ce
     echo("</td></tr>\n");
   }
   echo("</table>\n");
-
   var_dump($_GET);
   $user = $_GET["check"];
 
-  header('Location: '.addSession('checking.php').'&checkinguser='.$user ) ;
 }
-
-
 // Finish the body (including loading JavaScript for JQUery and Bootstrap)
 // And put out the common footer material
-
 $OUTPUT->footer();
-
