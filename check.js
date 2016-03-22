@@ -47,15 +47,8 @@ var rect = svg.selectAll(".day")
     .attr("x", function(d) { return week(d) * cellSize; })
     .attr("y", function(d) { return day(d) * cellSize; })
     .attr("fill",'#fff')
-    .on("click", click_function)
     .datum(format);
 
-function click_function(d){
-
-
-  window.location.href = attend_url + "&date=" + d;
-
-}
 rect.append("title")
     .text(function(d) { return d; });
 
@@ -78,7 +71,7 @@ svg.selectAll(".month")
     .attr("id", function(d,i){ return month[i] })
     .attr("d", monthPath);
 
-d3.csv("db_calendar.php", function(error, csv) {
+d3.csv("db_check_student.php", function(error, csv) {
 
   csv.forEach(function(d) {
     d.Comparison_Type = parseInt(d.Comparison_Type);

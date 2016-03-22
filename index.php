@@ -13,6 +13,7 @@ use \Tsugi\Core\LTIX;
 $LTI = LTIX::requireData();
 $p = $CFG->dbprefix;
 
+date_default_timezone_set("America/New_York");
 $today = date("Y-m-d");
 
 //Handling post data
@@ -193,13 +194,14 @@ if ( $USER->instructor) {
 
   ?>
 
-  <input type="submit" name="reset" class="btn btn-danger"  value="Reset" onclick="reset()">
+  <input type="submit" name="reset" class="btn btn-danger"  value="Reset" >
   
 </form>
 
 <div style = "position:absolute; top:0px; right:0px">
-  <a href="attendance.php" class="btn btn-default">Check Attendance</a>
+  
   <button type="submit" class="btn btn-success" name="toggle" id = "showAnswer"  onclick=" $('#chart_div').toggle();"> Chart</button>  
+  <a href="attendance.php" class="btn btn-info">Check Attendance</a>
 </div>
 
 
