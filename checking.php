@@ -65,16 +65,16 @@ echo("<br><br>");
   <!--End of Calendar HeatMap-->
 
   <?
-echo("<br><br>");
+  echo("<br><br>");
   if ( isset($_GET["check"])) {
-
     $cookie_name = "studentid";
     $cookie_value = $_GET["check"];
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-    var_dump($_GET);
+
     $user = $_GET["check"];
     header('Location: '.addSession('checking.php').'&checkinguser='.$user ) ;
   }
+
   if(isset($_GET["date"])){
     $check_date = $_GET["date"];
     $check_date = substr($check_date, 0,4) .'-' . substr($check_date, 4,2) .'-' . substr($check_date, 6,2);

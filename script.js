@@ -1,3 +1,13 @@
+function toggle(id) {
+	var state = document.getElementById(id).style.display;
+	
+	if (state == 'block') {
+		document.getElementById(id).style.display = 'none';
+	} else {
+		document.getElementById(id).style.display = 'block';
+	}
+}
+
 var time = 0;
 var running = false;
 
@@ -8,7 +18,7 @@ function startPause(){
 		running = true;
 		increment();
 		document.getElementById("startPause").innerHTML = "Pause";
-	
+
 	}
 	else{
 

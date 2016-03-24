@@ -19,8 +19,7 @@ date_default_timezone_set('UTC');
 if(isset($_COOKIE["studentid"])){
 	$student = $_COOKIE["studentid"];
 
-	unset($_COOKIE["studentid"]);
-	$res = setcookie($cookie_name, '', time() + (86400 * 30), "/");
+	setcookie("studentid", '', time() - (86400 * 30), "/");
  // Start date
 	$date = '2016-01-01';
  // End date
