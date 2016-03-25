@@ -14,8 +14,7 @@ $OUTPUT->bodyStart(); // Finish the </head> and start the <body>
 $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messages
 ?>
 
-
-
+<!--Returning button-->
 <div style = "position:absolute; top:0px; right:0px">
   <a href="index.php" class="btn btn-info">Back to Clicker</a>
 </div>
@@ -53,11 +52,13 @@ $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messag
 </style>
 </head>
 <body>
+
   <div class="calender-map" id="calendar_div"></div>
 
   <script>
   var attend_url = '<?= addSession("checking.php") ?>';
   </script>
+
   <script type="text/javascript" src="calendermap.js?x=<?= time() ?>"></script>
 
 

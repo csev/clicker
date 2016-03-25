@@ -16,13 +16,12 @@ echo("Date,Comparison_Type\n");
 date_default_timezone_set('UTC');
 
 
-if(isset($_COOKIE["studentid"])){
-	$student = $_COOKIE["studentid"];
+if(isset($_GET["check"])){
+	$student = $_GET["check"];
 
-	setcookie("studentid", '', time() - (86400 * 30), "/");
- // Start date
+	// Start date
 	$date = '2016-01-01';
- // End date
+	// End date
 	$end_date = '2016-12-31';
 
 	$results = $PDOX->allRowsDie("SELECT attend, user_id FROM {$p}clicker WHERE user_id = :STUDENT",
@@ -40,11 +39,8 @@ if(isset($_COOKIE["studentid"])){
 		$attend_date = str_replace("-","",$results[$num]['attend']);
 		if(!array_key_exists($attend_date, $date_num)){
 			$date_num[$attend_date] = 1;
-		//$date_num[$attend_date]['users'] = array();
-		//$date_num[$attend_date]['users'][0] = $results[$num]['user_id'];
 		}else{
 			$date_num[$attend_date]++;
-		//array_push($date_num[$attend_date]['users'], $results[$num]['user_id']);
 		}
 		$num++;
 

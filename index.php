@@ -12,85 +12,88 @@ $p = $CFG->dbprefix;
 date_default_timezone_set("America/New_York");
 $today = date("Y-m-d");
 //Handling post data
-if(isset($_POST['sendA']) && !isset($_POST['reset'])){
-  $PDOX->queryDie("INSERT INTO {$p}clicker
-    (link_id, user_id, guess, attend, ipaddr, count)
-    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE  guess = :GU, ipaddr = :IP, count = count + 1",
-    array(
-      ':LI' => $LINK->id,
-      ':UI' => $USER->id,
-      ':GU' => 0,
-      ':IP' => $_SERVER["REMOTE_ADDR"]
-      ));
-  
-  $_SESSION['success'] = 'Guess Recorded';
-  header('Location: '.addSession('index.php') ) ;
-  return;
-}else if(isset($_POST['sendB']) && !isset($_POST['reset'])){
-  $PDOX->queryDie("INSERT INTO {$p}clicker
-    (link_id, user_id, guess, attend, ipaddr, count)
-    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-    array(
-      ':LI' => $LINK->id,
-      ':UI' => $USER->id,
-      ':GU' => 1,
-      ':IP' => $_SERVER["REMOTE_ADDR"]
-      ));
-  
-  $_SESSION['success'] = 'Guess Recorded';
-  header('Location: '.addSession('index.php') ) ;
-  return;
-}else if(isset($_POST['sendC']) && !isset($_POST['reset'])){
-  $PDOX->queryDie("INSERT INTO {$p}clicker
-    (link_id, user_id, guess, attend, ipaddr, count)
-    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-    array(
-      ':LI' => $LINK->id,
-      ':UI' => $USER->id,
-      ':GU' => 2,
-      ':IP' => $_SERVER['REMOTE_ADDR']
-      ));
-  
-  $_SESSION['success'] = 'Guess Recorded';
-  header('Location: '.addSession('index.php') ) ;
-  return;
+
+if(!isset($_POST['reset']) ){
+  if(isset($_POST['sendA']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE  guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 0,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+    
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }else if(isset($_POST['sendB']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 1,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+    
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }else if(isset($_POST['sendC']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 2,
+        ':IP' => $_SERVER['REMOTE_ADDR']
+        ));
+    
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }
+  else if(isset($_POST['sendD']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 3,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+    
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }
+  else if(isset($_POST['sendE']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 4,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+    
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }
 }
-else if(isset($_POST['sendD']) && !isset($_POST['reset'])){
-  $PDOX->queryDie("INSERT INTO {$p}clicker
-    (link_id, user_id, guess, attend, ipaddr, count)
-    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-    array(
-      ':LI' => $LINK->id,
-      ':UI' => $USER->id,
-      ':GU' => 3,
-      ':IP' => $_SERVER["REMOTE_ADDR"]
-      ));
-  
-  $_SESSION['success'] = 'Guess Recorded';
-  header('Location: '.addSession('index.php') ) ;
-  return;
-}
-else if(isset($_POST['sendE']) && !isset($_POST['reset'])){
-  $PDOX->queryDie("INSERT INTO {$p}clicker
-    (link_id, user_id, guess, attend, ipaddr, count)
-    VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-    ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-    array(
-      ':LI' => $LINK->id,
-      ':UI' => $USER->id,
-      ':GU' => 4,
-      ':IP' => $_SERVER["REMOTE_ADDR"]
-      ));
-  
-  $_SESSION['success'] = 'Guess Recorded';
-  header('Location: '.addSession('index.php') ) ;
-  return;
-}
-else if(isset($_POST['reset']) && $USER->instructor){
+else if($USER->instructor){
   $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5 WHERE attend = :TODAY",
     array(':TODAY' => $today
       ));
@@ -100,10 +103,12 @@ else if(isset($_POST['reset']) && $USER->instructor){
   header('Location: '.addSession('index.php') ) ;
   return;
 }
+
 $OUTPUT->header(); // Start the document and begin the <head>
 $OUTPUT->bodyStart(); // Finish the </head> and start the <body>
 $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messages
 // A partial form styled using Twitter Bootstrap; button setup
+
 echo('<form method="post">');
 echo("Enter your answer:\n");
 echo('<input type="submit" class="btn btn-primary" name="sendA" value="'._('A').'"> ');
@@ -111,6 +116,7 @@ echo('<input type="submit" class="btn btn-primary" name="sendB" value="'._('B').
 echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').'"> ');
 echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
 echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
+
 $results = $PDOX->allRowsDie("SELECT guess, COUNT(guess) AS total FROM {$p}clicker WHERE attend = :TODAY GROUP BY guess ORDER BY guess ASC",
   array(':TODAY' => $today
     ));
@@ -120,74 +126,72 @@ $numC = 0;
 $numD = 0;
 $numE = 0;
 $taken = 0;
-// die("A");
+
 $size = sizeof($results);
 while($taken < $size){
-  //taken == 0
-  if(@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 0){
-    $numA = 0 + $results[$taken]['total'];
-    
-  }
-  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 1){
-    $numB = 0 + $results[$taken]['total'];
-    
-  }
-  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 2){
-    $numC = 0 + $results[$taken]['total'];
-    
-  }
-  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 3){
-    $numD = 0 + $results[$taken]['total'];
-    
-  }
-  elseif (@$results[$taken]['total'] != null && @$results[$taken]['guess'] == 4){
-    $numE = 0 + $results[$taken]['total'];
-    
+
+  if(@$results[$taken]['total'] != null){
+
+    $totalTaken = $results[$taken]['total'];
+    $choice = @$results[$taken]['guess'];
+
+    switch($choice){
+      case 0:
+      $numA = 0 + $results[$taken]['total'];
+      break;
+      case 1:
+      $numB = 0 + $results[$taken]['total'];
+      break;
+      case 2:
+      $numC = 0 + $results[$taken]['total'];
+      break;
+      case 3:
+      $numD = 0 + $results[$taken]['total'];
+      break;
+      case 4:
+      $numE = 0 + $results[$taken]['total'];
+      break;
+    }    
   }
   $taken ++;
 }
+
 $table = array();
     // convert data into JSON format
 $jsonTable = json_encode($table);
 if ( $USER->instructor) {
   ?>
 
-  <input type="submit" name="reset" class="btn btn-danger"  value="Reset" >
-  
+  <input type="submit" name="reset" class="btn btn-danger"  value="Reset" > 
 </form>
 
 <script type="text/javascript" src = "script.js?x=<?= time() ?>"></script>
 
 <div style = "position:absolute; top:0px; right:0px">
-
   <button type="submit" class="btn btn-success" name="toggle" id = "showAnswer"  onclick="toggle('chart_div');"> Chart</button>  
   <a href="attendance.php" class="btn btn-info">Check Attendance</a>
 </div>
 
-
 <!---Google chart-->
-
-
 <script type="text/javascript" src = "https://www.google.com/jsapi"></script>
-
-
 <script type="text/javascript">
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-         ['Element', 'Quantity', { role: 'style' }, {role:'annotation'}],
-         ['A', <?=$numA?>, 'red', 'A'],            
-         ['B', <?=$numB?>, 'blue', 'B'],           
-         ['C', <?=$numC?>, 'grey', 'C'],
-         ['D', <?=$numD?>, 'green', 'D'], 
-         ['E', <?=$numE?>, 'purple', 'E'], 
-         ]);
+
+  // Load the Visualization API and the piechart package.
+  google.load('visualization', '1.0', {'packages':['corechart']});
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.setOnLoadCallback(drawChart);
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Element', 'Quantity', { role: 'style' }, {role:'annotation'}],
+      ['A', <?=$numA?>, 'red', 'A'],            
+      ['B', <?=$numB?>, 'blue', 'B'],           
+      ['C', <?=$numC?>, 'grey', 'C'],
+      ['D', <?=$numD?>, 'green', 'D'], 
+      ['E', <?=$numE?>, 'purple', 'E'], 
+      ]);
         // Set chart options
         
         var options = {
@@ -210,7 +214,6 @@ if ( $USER->instructor) {
 
         <div id="chart_div" style="display:none"></div>
         <!--End of Google chart-->
-
         <?
       }
 // Finish the body (including loading JavaScript for JQUery and Bootstrap)

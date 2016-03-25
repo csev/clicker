@@ -71,7 +71,7 @@ svg.selectAll(".month")
     .attr("id", function(d,i){ return month[i] })
     .attr("d", monthPath);
 
-d3.csv("db_check_student.php", function(error, csv) {
+d3.csv(student_dataurl, function(error, csv) {
 
   csv.forEach(function(d) {
     d.Comparison_Type = parseInt(d.Comparison_Type);

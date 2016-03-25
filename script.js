@@ -8,6 +8,10 @@ function toggle(id) {
 	}
 }
 
+/*
+ * UNUSED JAVASCRIPT BELOW
+ * COULD BE USED TO CREATE A STOPWATCH
+ */
 var time = 0;
 var running = false;
 
