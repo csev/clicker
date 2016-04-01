@@ -13,6 +13,23 @@ date_default_timezone_set("America/New_York");
 $today = date("Y-m-d");
 //Handling post data
 
+function addChoice($choice,$PDOX,$p,$LINK,$USER){
+  $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE  guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => $choice,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+
+}
+
 $numA = 0;
 $numB = 0;
 $numC = 0;
@@ -55,81 +72,22 @@ while($taken < $size){
 
 if(!isset($_POST['reset']) ){
   if(isset($_POST['sendA']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE  guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 0,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
+    echo("!!!!!!!!!!");
+    addChoice(0,$PDOX,$p,$LINK,$USER);
     return;
   }else if(isset($_POST['sendB']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 1,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
+    addChoice(1,$PDOX,$p,$LINK,$USER);
     return;
   }else if(isset($_POST['sendC']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 2,
-        ':IP' => $_SERVER['REMOTE_ADDR']
-        ));
-
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
+    addChoice(2,$PDOX,$p,$LINK,$USER);
     return;
   }
   else if(isset($_POST['sendD']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 3,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
+    addChoice(3,$PDOX,$p,$LINK,$USER);
     return;
   }
   else if(isset($_POST['sendE']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 4,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
+    addChoice(4,$PDOX,$p,$LINK,$USER);
     return;
   }
 }
