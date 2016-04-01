@@ -13,119 +13,16 @@ date_default_timezone_set("America/New_York");
 $today = date("Y-m-d");
 //Handling post data
 
-if(!isset($_POST['reset']) ){
-  if(isset($_POST['sendA']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE  guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 0,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-    
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
-    return;
-  }else if(isset($_POST['sendB']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 1,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-    
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
-    return;
-  }else if(isset($_POST['sendC']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 2,
-        ':IP' => $_SERVER['REMOTE_ADDR']
-        ));
-    
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
-    return;
-  }
-  else if(isset($_POST['sendD']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 3,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-    
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
-    return;
-  }
-  else if(isset($_POST['sendE']) ){
-    $PDOX->queryDie("INSERT INTO {$p}clicker
-      (link_id, user_id, guess, attend, ipaddr, count)
-      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
-      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
-      array(
-        ':LI' => $LINK->id,
-        ':UI' => $USER->id,
-        ':GU' => 4,
-        ':IP' => $_SERVER["REMOTE_ADDR"]
-        ));
-    
-    $_SESSION['success'] = 'Guess Recorded';
-    header('Location: '.addSession('index.php') ) ;
-    return;
-  }
-}
-else if($USER->instructor){
-  $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5 WHERE attend = :TODAY",
-    array(':TODAY' => $today
-      ));
-  $PDOX->queryDie("UPDATE {$p}clicker SET count = count - 1 WHERE count > 0 AND attend = :TODAY",
-    array(':TODAY' => $today
-      ));
-  header('Location: '.addSession('index.php') ) ;
-  return;
-}
-
-$OUTPUT->header(); // Start the document and begin the <head>
-$OUTPUT->bodyStart(); // Finish the </head> and start the <body>
-$OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messages
-// A partial form styled using Twitter Bootstrap; button setup
-
-echo('<form method="post">');
-echo("Enter your answer:\n");
-echo('<input type="submit" class="btn btn-primary" name="sendA" value="'._('A').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="sendB" value="'._('B').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
-echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
-
-$results = $PDOX->allRowsDie("SELECT guess, COUNT(guess) AS total FROM {$p}clicker WHERE attend = :TODAY GROUP BY guess ORDER BY guess ASC",
-  array(':TODAY' => $today
-    ));
 $numA = 0;
 $numB = 0;
 $numC = 0;
 $numD = 0;
 $numE = 0;
 $taken = 0;
+
+$results = $PDOX->allRowsDie("SELECT guess, COUNT(guess) AS total FROM {$p}clicker WHERE attend = :TODAY GROUP BY guess ORDER BY guess ASC",
+  array(':TODAY' => $today
+    ));
 
 $size = sizeof($results);
 while($taken < $size){
@@ -155,6 +52,110 @@ while($taken < $size){
   }
   $taken ++;
 }
+
+if(!isset($_POST['reset']) ){
+  if(isset($_POST['sendA']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE  guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 0,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }else if(isset($_POST['sendB']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 1,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }else if(isset($_POST['sendC']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 2,
+        ':IP' => $_SERVER['REMOTE_ADDR']
+        ));
+
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }
+  else if(isset($_POST['sendD']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 3,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }
+  else if(isset($_POST['sendE']) ){
+    $PDOX->queryDie("INSERT INTO {$p}clicker
+      (link_id, user_id, guess, attend, ipaddr, count)
+      VALUES ( :LI, :UI, :GU, NOW(), :IP, 1)
+      ON DUPLICATE KEY UPDATE guess = :GU, ipaddr = :IP, count = count + 1",
+      array(
+        ':LI' => $LINK->id,
+        ':UI' => $USER->id,
+        ':GU' => 4,
+        ':IP' => $_SERVER["REMOTE_ADDR"]
+        ));
+
+    $_SESSION['success'] = 'Guess Recorded';
+    header('Location: '.addSession('index.php') ) ;
+    return;
+  }
+}
+else if($USER->instructor){
+  $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5 WHERE attend = :TODAY",
+    array(':TODAY' => $today
+      ));
+  $PDOX->queryDie("UPDATE {$p}clicker SET count = count - 1 WHERE count > 0 AND attend = :TODAY",
+    array(':TODAY' => $today
+      ));
+  header('Location: '.addSession('index.php') ) ;
+  return;
+}
+
+$OUTPUT->header(); // Start the document and begin the <head>
+$OUTPUT->bodyStart(); // Finish the </head> and start the <body>
+$OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messages
+// A partial form styled using Twitter Bootstrap; button setup
+
+echo('<form method="post">');
+echo("Enter your answer:\n");
+echo('<input type="submit" class="btn btn-primary" name="sendA" value="'._('A').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendB" value="'._('B').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendC" value="'._('C').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendD" value="'._('D').'"> ');
+echo('<input type="submit" class="btn btn-primary" name="sendE" value="'._('E').'"> ');
 
 $table = array();
     // convert data into JSON format
