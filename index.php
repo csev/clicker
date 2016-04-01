@@ -91,7 +91,7 @@ if(!isset($_POST['reset']) ){
     return;
   }
 }
-else if($USER->instructor){
+else{
   $PDOX->queryDie("UPDATE {$p}clicker SET guess = 5 WHERE attend = :TODAY",
     array(':TODAY' => $today
       ));

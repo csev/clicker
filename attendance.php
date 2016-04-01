@@ -38,8 +38,6 @@ $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messag
   </script>
 
   <script type="text/javascript" src="calendermap.js?x=<?= time() ?>"></script>
-
-
   <!--End of Calendar HeatMap-->
 
   <?
