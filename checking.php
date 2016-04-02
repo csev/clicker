@@ -1,8 +1,6 @@
 <?php
 //include "heatmap.php";
 require_once "../../config.php";
-require_once $CFG->dirroot."/pdo.php";
-require_once $CFG->dirroot."/lib/lms_lib.php";
 //echo('1');
 use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
@@ -34,16 +32,16 @@ echo("<br><br>");
 </head>
 <body>
 
-  <div class="calender-map" id="calendar_div"></div>
+  <div class="calendar-map" id="calendar_div"></div>
 
   <script>
 
   <?php 
   
   if ( isset($_GET['check']) ) {
-    echo('var student_dataurl = "db_check_student.php?check='.$_GET['check'].'";');
+    echo('var student_dataurl = "'.addSession('db_check_student.php?check='.$_GET['check']).'";');
   } else {
-    echo('var student_dataurl = "db_check_student.php";');
+    echo('var student_dataurl = "'.addSession('db_check_student.php').'";');
   }
   ?>
 

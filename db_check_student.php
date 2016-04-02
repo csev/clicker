@@ -1,14 +1,14 @@
 <?php
 require_once "../../config.php";
-require_once $CFG->dirroot."/pdo.php";
-require_once $CFG->dirroot."/lib/lms_lib.php";
 
 use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
 
 // Retrieve required launch data from session
-//$LTI = LTIX::requireData();
+$LTI = LTIX::requireData();
 $p = $CFG->dbprefix;
+
+if ( ! $USER->instructor ) die("must be instructor");
 
 header("Content-type: text/plain");
 echo("Date,Comparison_Type\n");
@@ -24,9 +24,12 @@ if(isset($_GET["check"])){
 	// End date
 	$end_date = '2016-12-31';
 
-	$results = $PDOX->allRowsDie("SELECT attend, user_id FROM {$p}clicker WHERE user_id = :STUDENT",
-		array(':STUDENT' => $student)
-		); 
+	$results = $PDOX->allRowsDie("SELECT attend, user_id FROM {$p}clicker 
+        WHERE user_id = :STUDENT AND link_id = :link",
+		array(':STUDENT' => $student,
+            ":link" => $LINK->id
+        )
+	); 
 
 	$num = 0;
 	$results_size = sizeof($results);
