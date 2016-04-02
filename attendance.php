@@ -1,8 +1,6 @@
 <?php
 //include "heatmap.php";
 require_once "../../config.php";
-require_once $CFG->dirroot."/pdo.php";
-require_once $CFG->dirroot."/lib/lms_lib.php";
 //echo('1');
 use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
@@ -31,13 +29,14 @@ $OUTPUT->flashMessages(); // Print out the $_SESSION['success'] and error messag
 </head>
 <body>
 
-  <div class="calender-map" id="calendar_div"></div>
+  <div class="calendar-map" id="calendar_div"></div>
 
   <script>
   var attend_url = '<?= addSession("checking.php") ?>';
+  var global_db_calendar_url = '<?= addSession("db_calendar.php") ?>';
   </script>
 
-  <script type="text/javascript" src="calendermap.js?x=<?= time() ?>"></script>
+  <script type="text/javascript" src="calendarmap.js?x=<?= time() ?>"></script>
   <!--End of Calendar HeatMap-->
 
   <?

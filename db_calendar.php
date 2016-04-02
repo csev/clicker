@@ -1,13 +1,11 @@
 <?php
 require_once "../../config.php";
-require_once $CFG->dirroot."/pdo.php";
-require_once $CFG->dirroot."/lib/lms_lib.php";
 
 use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
 
 // Retrieve required launch data from session
-//$LTI = LTIX::requireData();
+$LTI = LTIX::requireData();
 $p = $CFG->dbprefix;
 
 header("Content-type: text/plain");

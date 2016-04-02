@@ -13,7 +13,7 @@ var day = d3.time.format("%w"),
 var color = d3.scale.linear().range(["white", '#002e53'])
     .domain([0, 1])
     
-var svg = d3.select(".calender-map").selectAll("svg")
+var svg = d3.select(".calendar-map").selectAll("svg")
     .data(d3.range(2016, 2017))
   .enter().append("svg")
     .attr("width", '100%')

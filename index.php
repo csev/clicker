@@ -1,14 +1,13 @@
 <?php
-//ainclude "heatmap.php";
 require_once "../../config.php";
-require_once $CFG->dirroot."/pdo.php";
-require_once $CFG->dirroot."/lib/lms_lib.php";
 //echo('1');
 use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
+
 // Retrieve required launch data from session
 $LTI = LTIX::requireData();
 $p = $CFG->dbprefix;
+
 date_default_timezone_set("America/New_York");
 $today = date("Y-m-d");
 //Handling post data
