@@ -14,9 +14,9 @@ echo("Date,Comparison_Type\n");
  date_default_timezone_set('UTC');
  
  // Start date
- $date = '2016-01-01';
+ $date = '2017-01-01';
  // End date
- $end_date = '2016-12-31';
+ $end_date = '2017-12-31';
 
 $results = $PDOX->allRowsDie("SELECT attend, user_id FROM {$p}clicker"); 
 
